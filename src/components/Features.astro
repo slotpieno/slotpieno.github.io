@@ -1,0 +1,19 @@
+---
+const items = [
+{ t: 'Promemoria WhatsApp', d: 'Messaggi automatici prima dell\u2019appuntamento. Meno dimenticanze, agenda piena.' },
+{ t: 'Conferma in 1 tap', d: 'Il cliente conferma o chiede di spostare. Tu vedi tutto senza rincorrere nessuno.' },
+{ t: 'Zero software da imparare', d: 'Niente app complesse tipo Booksy o Fresha. Installiamo tutto noi.' },
+{ t: 'Nessun canone', d: 'Paghi il setup una volta. Niente abbonamenti, costi nascosti o lock-in.' },
+];
+---
+<section id="funzioni" class="mx-auto max-w-6xl px-4 py-10">
+<h2 class="text-2xl md:text-3xl font-bold text-center">Tutto ciò che serve, niente di più</h2>
+<div class="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+{items.map((x) => (
+<article class="rounded-xl border border-white/10 bg-brand-panel p-5">
+<h3 class="font-semibold">{x.t}</h3>
+<p class="mt-2 text-sm text-brand-muted">{x.d}</p>
+</article>
+))}
+</div>
+</section>

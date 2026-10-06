@@ -1,0 +1,25 @@
+---
+import { siteConfig } from '../config/site';
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-white/10">
+<div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 grid-cols-1 md:grid-cols-3">
+<div>
+<p class="font-bold">{siteConfig.name}</p>
+<p class="mt-2 text-sm text-brand-muted">{siteConfig.tagline}.</p>
+</div>
+<div>
+<p class="font-semibold text-sm">Contatti</p>
+<p class="mt-2 text-sm"><a class="underline" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+<p class="mt-1 text-sm text-brand-muted">Risposta entro 24h lavorative</p>
+</div>
+<div>
+<p class="font-semibold text-sm">Link</p>
+<p class="mt-2 text-sm"><a class="underline" href="/privacy/">Privacy</a></p>
+<p class="mt-1 text-xs text-brand-muted">Servizio informativo, nessun pagamento online. Prezzo setup 149€ una tantum, nessun canone.</p>
+</div>
+</div>
+<div class="border-t border-white/10">
+<p class="mx-auto max-w-6xl px-4 py-4 text-xs text-brand-muted">© {year} {siteConfig.name} — Tutti i diritti riservati.</p>
+</div>
+</footer>
