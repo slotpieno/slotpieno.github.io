@@ -1,23 +1,78 @@
 ---
-const faqs = [
-{ q: 'Devo installare qualcosa?', a: 'No. Facciamo tutto noi: colleghiamo agenda e WhatsApp e ti mostriamo solo come leggere le conferme.' },
-{ q: 'Funziona con la mia agenda?', a: 'Sì nella maggior parte dei casi: Google Calendar e agende comuni. Lo verifichiamo gratis prima del setup.' },
-{ q: 'I clienti devono installare un\u2019app?', a: 'No. Ricevono normali messaggi WhatsApp, rispondono come sempre.' },
-{ q: 'C\u2019è davvero nessun canone?', a: 'Esatto: paghi il setup una tantum. Se poi vuoi modifiche o supporto extra, ci sono pack a consumo, mai un canone obbligatorio.' },
-{ q: 'Quanto dura la prova?', a: '14 giorni. Se non riduci i no-show, non paghi il setup.' },
-{ q: 'E la privacy / GDPR?', a: 'Trattiamo solo i dati necessari ai promemoria, con accordo DPA Art.28. I clienti possono disdire con STOP.' },
-{ q: 'Cosa succede se un cliente sposta?', a: 'Risponde al messaggio e tu ricevi la richiesta: confermi o proponi un nuovo orario.' },
-{ q: 'Per quali attività va bene?', a: 'Parrucchieri, estetiste, toelettatori, PT, fisioterapisti, nail artist, tatuatori, coach, fotografi, nutrizionisti e altre micro-attività su appuntamento.' },
+import { siteConfig } from '../config/site';
+
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Devo installare qualcosa?',
+    a: 'No. Facciamo tutto noi: colleghiamo la tua agenda (Google Calendar, Calendly, iCal, Outlook...) e WhatsApp Business. Ti mostriamo solo come leggere le conferme — niente app, niente dashboard complesse.',
+  },
+  {
+    q: 'Funziona con la mia agenda attuale?',
+    a: 'Sì nella stragrande maggioranza dei casi. Supportiamo Google Calendar, Calendly, Cal.com, iCal, Outlook e qualsiasi agenda esporti un feed .ics o API. Lo verifichiamo gratis durante la call di 15 minuti.',
+  },
+  {
+    q: "I miei clienti devono installare un'app?",
+    a: 'Assolutamente no. Ricevono normali messaggi WhatsApp — lo stesso canale che usano tutti i giorni. Rispondono "Confermo" o "Sposto" con un tap. Zero frizione, zero adozione richiesta.',
+  },
+  {
+    q: "C'è davvero nessun canone mensile?",
+    a: 'Esatto. Paghi il setup una tantum (149€ offerta fondatore). Include 30 giorni di assistenza. Se dopo vuoi modifiche, nuove regole o supporto extra, ci sono pack a consumo (es. 3 mesi 89€). Mai un abbonamento obbligatorio. È il nostro modello: Art. 67 TUIR, prestazione occasionale pura.',
+  },
+  {
+    q: 'Quanto dura la prova gratuita?',
+    a: '14 giorni pieni. Attiviamo tutto, mandi i primi promemoria, vedi i risultati. Se non riduci i no-show, non paghi il setup. Zero rischio.',
+  },
+  {
+    q: 'E la privacy / GDPR?',
+    a: 'Trattiamo solo i dati strettamente necessari ai promemoria (nome, orario, numero WhatsApp). Accordo DPA Art. 28 GDPR incluso. I tuoi clienti possono disdire in qualsiasi momento rispondendo "STOP". Conservazione max 24 mesi salvo obblighi di legge.',
+  },
+  {
+    q: "Cosa succede se un cliente vuole spostare l'appuntamento?",
+    a: 'Risponde al messaggio WhatsApp toccando "Sposto". Ricevi la richiesta in tempo reale: confermi il nuovo orario o ne proponi un altro. Il cliente viene notificato automaticamente. Tutto in chat, niente chiamate.',
+  },
+  {
+    q: 'Per quali attività va bene?',
+    a: 'Parrucchieri, estetiste, toelettatori, personal trainer, fisioterapisti, nail artist, tatuatori, consulenti immagine, coach, insegnanti privati, event planner, fotografi, nutrizionisti, logopedisti, massaggiatori — e qualsiasi micro-attività che viva di appuntamenti.',
+  },
 ];
 ---
-<section id="faq" class="mx-auto max-w-3xl px-4 py-10">
-<h2 class="text-2xl md:text-3xl font-bold text-center">Domande frequenti</h2>
-<div class="mt-6 space-y-3">
-{faqs.map((f) => (
-<details>
-<summary class="cursor-pointer font-semibold">{f.q}</summary>
-<p class="mt-2 text-sm text-brand-muted">{f.a}</p>
-</details>
-))}
-</div>
+
+<section id="faq" class="section ruled" aria-labelledby="faq-title">
+  <div class="container">
+    <header class="text-center max-w-2xl mx-auto mb-12">
+      <h2 id="faq-title" class="font-display font-bold text-4xl md:text-5xl text-ink text-balance">
+        Domande frequenti
+      </h2>
+      <p class="mt-4 text-lg text-ink-muted text-balance">
+        Tutto quello che ti serve sapere prima di iniziare. Se manca qualcosa, <a href={`mailto:${siteConfig.email}`} class="underline hover:text-stamp transition-colors">scrivici</a>.
+      </p>
+    </header>
+
+    <div class="mx-auto max-w-3xl">
+      <dl class="space-y-3" role="list">
+        {faqs.map((f: FAQItem, i: number) => (
+          <div class="card overflow-hidden reveal" style={{ transitionDelay: `${50 + i * 50}ms` }}>
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between p-5 font-medium text-ink cursor-pointer list-none" aria-expanded="false">
+                  <span>{f.q}</span>
+                  <svg class="flex-shrink-0 ml-4 w-5 h-5 text-ink-muted transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </summary>
+                <dd class="px-5 pb-5 text-ink-muted leading-relaxed border-t border-paper-dark">
+                  {f.a}
+                </dd>
+              </details>
+            </dt>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
 </section>

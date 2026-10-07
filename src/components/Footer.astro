@@ -2,24 +2,47 @@
 import { siteConfig } from '../config/site';
 const year = new Date().getFullYear();
 ---
-<footer class="border-t border-white/10">
-<div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 grid-cols-1 md:grid-cols-3">
-<div>
-<p class="font-bold">{siteConfig.name}</p>
-<p class="mt-2 text-sm text-brand-muted">{siteConfig.tagline}.</p>
-</div>
-<div>
-<p class="font-semibold text-sm">Contatti</p>
-<p class="mt-2 text-sm"><a class="underline" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
-<p class="mt-1 text-sm text-brand-muted">Risposta entro 24h lavorative</p>
-</div>
-<div>
-<p class="font-semibold text-sm">Link</p>
-<p class="mt-2 text-sm"><a class="underline" href="/privacy/">Privacy</a></p>
-<p class="mt-1 text-xs text-brand-muted">Servizio informativo, nessun pagamento online. Prezzo setup 149€ una tantum, nessun canone.</p>
-</div>
-</div>
-<div class="border-t border-white/10">
-<p class="mx-auto max-w-6xl px-4 py-4 text-xs text-brand-muted">© {year} {siteConfig.name} — Tutti i diritti riservati.</p>
-</div>
+<footer class="border-t border-paper-dark bg-paper" role="contentinfo">
+  <div class="container py-10 md:py-16">
+    <div class="grid gap-8 md:grid-cols-3 lg:grid-cols-4">
+      <div class="lg:col-span-2">
+        <a href="/" class="flex items-center gap-2 font-display font-bold text-xl text-ink mb-4" aria-label={`${siteConfig.name} — Home`}>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" class="text-stamp">
+            <rect x="2" y="6" width="24" height="16" rx="3" fill="currentColor" />
+            <rect x="5" y="9" width="18" height="10" rx="2" fill="#faf7f0" />
+            <circle cx="14" cy="14" r="4" fill="currentColor" />
+            <rect x="10" y="12" width="8" height="1.5" rx="0.75" fill="#faf7f0" />
+            <rect x="10" y="15.5" width="5" height="1" rx="0.5" fill="#faf7f0" />
+          </svg>
+          <span>{siteConfig.name}</span>
+        </a>
+        <p class="text-ink-muted max-w-xs leading-relaxed">{siteConfig.tagline}. Promemoria WhatsApp automatici, installazione done-for-you, nessun canone mensile.</p>
+      </div>
+
+      <nav aria-label="Navigazione secondaria">
+        <h3 class="font-semibold text-ink mb-4">Navigazione</h3>
+        <ul class="space-y-2 text-sm" role="list">
+          <li><a href="#funzioni" class="text-ink-muted hover:text-ink transition-colors">Funzioni</a></li>
+          <li><a href="#come-funziona" class="text-ink-muted hover:text-ink transition-colors">Come funziona</a></li>
+          <li><a href="#prezzo" class="text-ink-muted hover:text-ink transition-colors">Prezzo</a></li>
+          <li><a href="#faq" class="text-ink-muted hover:text-ink transition-colors">FAQ</a></li>
+          <li><a href="#contatto" class="text-ink-muted hover:text-ink transition-colors">Contatto</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Contatti e legale">
+        <h3 class="font-semibold text-ink mb-4">Contatti & Legale</h3>
+        <ul class="space-y-2 text-sm" role="list">
+          <li><a href={`mailto:${siteConfig.email}`} class="text-ink-muted hover:text-stamp transition-colors">{siteConfig.email}</a></li>
+          <li><a href="/privacy/" class="text-ink-muted hover:text-ink transition-colors">Privacy</a></li>
+          <li class="text-ink-muted">Risposta entro 24h lavorative</li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-paper-dark flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-ink-muted">© {year} {siteConfig.name} — Tutti i diritti riservati.</p>
+      <p class="text-xs text-ink-muted">Servizio informativo, nessun pagamento online. Setup una tantum 149€, nessun canone. Art. 67 TUIR compliant.</p>
+    </div>
+  </div>
 </footer>

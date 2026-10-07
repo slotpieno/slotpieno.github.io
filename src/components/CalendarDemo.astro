@@ -1,0 +1,110 @@
+---
+interface Props {
+  initialDelay?: number;
+}
+const { initialDelay = 800 } = Astro.props;
+---
+<div class="mx-auto max-w-md reveal" style={{ transitionDelay: `${initialDelay}ms` }} role="img" aria-label="Calendario che si riempie: prima vuoto, poi tutti gli slot occupati grazie ai promemoria automatici">
+  <div class="grid grid-cols-7 gap-1 mb-3">
+    {['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'].map(d => (
+      <div class="cal-day">{d}</div>
+    ))}
+  </div>
+  <div class="cal-grid" id="cal-grid">
+    {Array.from({ length: 35 }).map((_, i) => (
+      <div class="cal-cell" data-cell={i} aria-hidden="true"></div>
+    ))}
+  </div>
+  <div class="cal-legend">
+    <span class="flex items-center gap-2">
+      <span class="cal-dot cal-dot--empty" aria-hidden="true"></span>
+      Slot vuoto
+    </span>
+    <span class="flex items-center gap-2">
+      <span class="cal-dot cal-dot--filled" aria-hidden="true"></span>
+      Slot pieno
+    </span>
+  </div>
+</div>
+
+<style>
+  .cal-day {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a8177;
+    text-align: center;
+    padding-bottom: 6px;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: #f3eee2;
+    border: 1.5px solid #e2d9c8;
+    transition: all 200ms ease-out;
+  }
+  .cal-cell.filled {
+    background: linear-gradient(135deg, #c85c3a 0%, #a84a2e 100%);
+    border-color: #c85c3a;
+    box-shadow: 0 6px 20px -8px rgba(200, 92, 58, 0.6);
+  }
+  .cal-cell.filling {
+    animation: slot-pop 350ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .cal-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    color: #8a8177;
+  }
+  .cal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+  .cal-dot--empty {
+    background: #f3eee2;
+    border: 1.5px solid #e2d9c8;
+  }
+  .cal-dot--filled {
+    background: linear-gradient(135deg, #c85c3a 0%, #a84a2e 100%);
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cells = document.querySelectorAll('.cal-cell');
+    const fillSequence = [
+      [0, 1, 2, 3, 4, 5, 6],
+      [7, 8, 9, 10, 11, 12, 13],
+      [14, 15, 16, 17, 18, 19, 20],
+      [21, 22, 23, 24, 25, 26, 27],
+      [28, 29, 30, 31, 32, 33, 34],
+    ];
+
+    let delay = 0;
+    fillSequence.forEach((week) => {
+      week.forEach((cellIndex) => {
+        if (cellIndex < cells.length) {
+          setTimeout(() => {
+            cells[cellIndex].classList.add('filled', 'filling');
+            setTimeout(() => cells[cellIndex].classList.remove('filling'), 350);
+          }, delay);
+          delay += 45;
+        }
+      });
+      delay += 150;
+    });
+  });
+</script>

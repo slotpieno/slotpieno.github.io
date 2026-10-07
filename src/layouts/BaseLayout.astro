@@ -8,29 +8,42 @@ interface Props {
   title?: string;
   description?: string;
 }
-const { title = `${siteConfig.name} — ${siteConfig.tagline}`, description = 'Promemoria WhatsApp automatici per micro-attività: meno no-show, zero canone, setup una tantum 149€.' } = Astro.props;
+const {
+  title = `${siteConfig.name} — ${siteConfig.tagline}`,
+  description = 'Promemoria WhatsApp automatici per micro-attività: meno no-show, zero canone, setup una tantum 149€.'
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, siteConfig.url).toString();
+const ogImage = `${siteConfig.url}/og-image.svg`;
 ---
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{title}</title>
-<meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content={siteConfig.name} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
-<meta property="og:image" content={`${siteConfig.url}/og-image.svg`} />
-<meta name="theme-color" content="#0f1419" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=DM+Sans:opsz,wght@9..36,400;9..36,500;9..36,600;9..36,700&display=swap" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteConfig.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  <meta name="theme-color" content="#faf7f0" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 </head>
-<body class="bg-brand-bg text-brand-text antialiased">
-<Header />
-<main id="contenuto"><slot /></main>
-<Footer />
+<body>
+  <Header />
+  <main id="contenuto"><slot /></main>
+  <Footer />
 </body>
 </html>

@@ -1,19 +1,154 @@
 ---
-const steps = [
-{ n: '1', t: 'Ci dici come lavori', d: 'Orari, servizi e regole di promemoria. 15 minuti al telefono.' },
-{ n: '2', t: 'Installiamo tutto noi', d: 'Colleghiamo agenda e WhatsApp. Tu continui a lavorare.' },
-{ n: '3', t: 'I clienti si presentano', d: 'Promemoria automatici, conferme e spostamenti gestiti.' },
+import PhoneIcon from './icons/Phone.astro';
+import GearIcon from './icons/Gear.astro';
+import CheckCircleIcon from './icons/CheckCircle.astro';
+
+interface StepDetail {
+  number: string;
+  icon: typeof PhoneIcon;
+  title: string;
+  description: string;
+  details: string[];
+  detailsLabel: string;
+}
+
+const steps: StepDetail[] = [
+  {
+    number: '01',
+    icon: PhoneIcon,
+    title: 'Ci dici come lavori',
+    description: 'Una chiamata di 15 minuti. Ci racconti orari, servizi, regole di promemoria (quando mandare, cosa scrivere, come gestire gli spostamenti). Niente moduli infiniti.',
+    details: ['Orari apertura/chiusura', 'Servizi e durata', 'Quando mandare il promemoria (24h? 2h? Entrambi?)', 'Testo del messaggio (tone of voice tuo)', 'Come gestire "Sposto" vs "Cancello"'],
+    detailsLabel: 'Definiamo insieme:',
+  },
+  {
+    number: '02',
+    icon: GearIcon,
+    title: 'Installiamo tutto noi',
+    description: 'Colleghiamo la tua agenda (Google Calendar, Calendly, iCal, o quella che usi) e WhatsApp Business. Configuriamo i messaggi, testiamo, mettiamo online. Tu continui a lavorare.',
+    details: ['Google Calendar / Calendly / iCal / Outlook', 'WhatsApp Business API (verificato)', 'Template messaggi approvati Meta', 'Webhook conferme/spostamenti in tempo reale', 'Dashboard lettura conferme (opzionale)'],
+    detailsLabel: 'Cosa connettiamo per te:',
+  },
+  {
+    number: '03',
+    icon: CheckCircleIcon,
+    title: 'I clienti si presentano',
+    description: 'Prima dell\'appuntamento parte il promemoria automatico. Il cliente conferma o chiede di spostare. Tu vedi le risposte in tempo reale. Agenda piena, zero rincorse.',
+    details: ['Promemoria automatico 24h + 2h prima', 'Cliente tocca "Confermo" → slot verde', 'Cliente tocca "Sposto" → ricevi richiesta', 'Tu confermi nuovo orario → cliente notificato', 'Report settimanale: quanti no-show evitati'],
+    detailsLabel: 'Cosa succede ogni giorno:',
+  },
 ];
 ---
-<section id="come-funziona" class="mx-auto max-w-6xl px-4 py-10">
-<h2 class="text-2xl md:text-3xl font-bold text-center">Come funziona</h2>
-<ol class="mt-6 grid gap-4 grid-cols-1 md:grid-cols-3">
-{steps.map((s) => (
-<li class="rounded-xl border border-white/10 bg-brand-panel p-5">
-<p class="text-3xl font-extrabold text-brand-accent">{s.n}</p>
-<h3 class="mt-2 font-semibold">{s.t}</h3>
-<p class="mt-2 text-sm text-brand-muted">{s.d}</p>
-</li>
-))}
-</ol>
+<section id="come-funziona" class="section" aria-labelledby="come-funziona-title">
+  <div class="container">
+    <header class="mx-auto max-w-2xl text-center mb-14 reveal">
+      <h2 id="come-funziona-title" class="font-display font-bold text-step-4 md:text-step-5 text-brand-ink text-balance">
+        Come funziona
+      </h2>
+      <p class="mt-4 text-step-1 text-brand-soft text-balance">
+        Tre step. Zero complicazioni. Dal primo contatto all'agenda piena in pochi giorni.
+      </p>
+    </header>
+
+    <div class="mx-auto max-w-prose">
+      <ol class="space-y-10" role="list">
+        {steps.map((step, i) => (
+          <li class="relative reveal step-row" style={{ transitionDelay: `${200 + i * 200}ms` }}>
+            <div class="step-marker" aria-hidden="true">
+              <span class="step-number">{step.number}</span>
+              <div class="step-line" />
+            </div>
+
+            <div class="step-content">
+              <div class="step-icon" aria-hidden="true">
+                <step.icon />
+              </div>
+              <div class="step-body">
+                <h3 class="font-display font-semibold text-step-2 md:text-step-3 text-brand-ink mb-2">{step.title}</h3>
+                <p class="text-brand-soft text-step-0 leading-relaxed mb-4">{step.description}</p>
+                <div class="step-details" style="background: #fff; border: 1px solid #e2d9c8; border-radius: 10px; padding: 1.25rem;">
+                  <p class="text-sm text-brand-faint mb-3">{step.detailsLabel}</p>
+                  <ul class="space-y-2 text-sm text-brand-ink/80" role="list">
+                    {step.details.map((detail: string) => (
+                      <li class="flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="text-brand-sage flex-shrink-0"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="mt-14 text-center reveal" style="transition-delay: 800ms;">
+        <p class="text-brand-soft mb-4">Pronto a iniziare?</p>
+        <a href="#contatto" class="btn btn-primary inline-flex">Richiedi la prova gratuita</a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .step-row {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .step-marker {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #c85c3a;
+      color: #faf7f0;
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      box-shadow: 0 0 0 4px #faf7f0;
+    }
+    .step-line {
+      width: 2px;
+      height: 100%;
+      background: #e2d9c8;
+      position: absolute;
+      top: 40px;
+      left: 19px;
+    }
+    .step-row:last-child .step-line { display: none; }
+
+    .step-content { display: flex; gap: 1rem; align-items: start; }
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #fff3eb;
+      border: 1.5px solid #c85c3a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-icon svg { width: 24px; height: 24px; color: #c85c3a; }
+    .step-body { flex: 1; min-width: 0; }
+
+    @media (max-width: 768px) {
+      .step-row { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .step-marker { flex-direction: row; justify-content: flex-start; gap: 1rem; }
+      .step-line { width: 100%; height: 2px; top: auto; bottom: -0.5rem; left: 40px; }
+      .step-row:last-child .step-line { display: block; }
+      .step-content { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
 </section>

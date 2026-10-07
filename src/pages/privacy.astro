@@ -1,24 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
 ---
-<BaseLayout title="Privacy — SlotPieno" description="Informativa privacy e trattamento dati di SlotPieno.">
-<article class="mx-auto max-w-3xl px-4 py-10">
-<h1 class="text-2xl font-bold">Privacy</h1>
-<p class="mt-4 text-sm">Raccontiamo cosa raccogliamo, perché, per quanto tempo e come puoi chiedere cancellazione/modifica.</p>
-<h2 class="mt-8 text-lg font-semibold">Dati trattati</h2>
-<ul class="mt-2 list-disc pl-5 text-sm">
-<li>Dati di contatto inviati tramite form: nome, email, telefono, messaggio.</li>
-<li>Dati di prenotazione/orario necessari al servizio di promemoria WhatsApp.</li>
-</ul>
-<h2 class="mt-8 text-lg font-semibold">Finalità</h2>
-<ul class="mt-2 list-disc pl-5 text-sm">
-<li>Rispondere a richieste di informazioni e inviare il preventivo.</li>
-<li>Fornire il servizio di promemoria WhatsApp (solo se accettato).</li>
-</ul>
-<h2 class="mt-8 text-lg font-semibold">Conservazione</h2>
-<p class="mt-2 text-sm">Massimo 24 mesi, salvo obblighi di legge. Puoi chiedere cancellazione in qualsiasi momento scrivendo a <a class="underline" href="mailto:slotpieno.contatti@gmail.com">slotpieno.contatti@gmail.com</a>.</p>
-<h2 class="mt-8 text-lg font-semibold">Diritti</h2>
-<p class="mt-2 text-sm">Accesso, rettifica, cancellazione, opposizione. Scrivi a <a class="underline" href="mailto:slotpieno.contatti@gmail.com">slotpieno.contatti@gmail.com</a>.</p>
-<p class="mt-8 text-xs text-brand-muted">Ultimo aggiornamento: 2026-10-06</p>
-</article>
+<BaseLayout title="Privacy — SlotPieno" description="Informativa privacy SlotPieno: trattamento dati per promemoria WhatsApp automatici, GDPR, DPA Art. 28.">
+  <main class="container py-16 md:py-24 max-w-3xl">
+    <h1 class="font-display font-bold text-4xl md:text-5xl text-ink mb-8">Privacy</h1>
+
+    <section class="space-y-6 text-ink-muted leading-relaxed">
+      <p><strong>Titolare del trattamento:</strong> Giovanni Galeota, CF GLTGNN74E22A345K, email: <a href={`mailto:${siteConfig.email}`} class="underline hover:text-stamp">{siteConfig.email}</a>.</p>
+
+      <p><strong>Dati trattati:</strong> solo quelli strettamente necessari ai promemoria WhatsApp — nome cliente, orario appuntamento, numero WhatsApp. Nessun dato sensibile, nessun profilo commerciale.</p>
+
+      <p><strong>Base giuridica:</strong> esecuzione contratto (Art. 6.1.b GDPR) + legittimo interesse per promemoria operativi. Accordo DPA Art. 28 GDPR incluso nel contratto.</p>
+
+      <p><strong>Conservazione:</strong> max 24 mesi salvo obblighi di legge (fatture 10 anni). Cancellazione su richiesta (diritto all'oblio Art. 17 GDPR).</p>
+
+      <p><strong>Diritti:</strong> accesso, rettifica, cancellazione, limitazione, portabilità, opposizione. Scrivi a <a href={`mailto:${siteConfig.email}`} class="underline hover:text-stamp">{siteConfig.email}</a>.</p>
+
+      <p><strong>Opt-out pazienti:</strong> i clienti finali possono disdire i promemoria in qualsiasi momento rispondendo "STOP" al messaggio WhatsApp. Nessun dato ceduto a terzi.</p>
+
+      <p><strong>Sicurezza:</strong> trasmissione HTTPS, archiviazione su server EU (Hetzner Germania), accesso su base need-to-know. Backup cifrati, log 30gg.</p>
+    </section>
+
+    <p class="mt-10 text-sm text-ink-muted">Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}.</p>
+  </main>
 </BaseLayout>

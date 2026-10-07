@@ -2,8 +2,6 @@ name: Deploy SlotPieno landing on GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - 'slotpieno-landing/**'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,18 +15,16 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: slotpieno-landing/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install
         run: |
-          cd slotpieno-landing
           npm ci --no-audit --no-fund
       - name: Build
         run: |
-          cd slotpieno-landing
           npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: slotpieno-landing/dist
+          path: dist
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
